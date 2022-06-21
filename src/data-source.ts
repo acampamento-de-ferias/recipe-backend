@@ -10,7 +10,7 @@ const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     migrations: [__dirname + '/migration/**/*.ts'],
-})
+});
 
 AppDataSource.initialize()
     .then(() => {
@@ -18,6 +18,6 @@ AppDataSource.initialize()
     })
     .catch((err) => {
         console.error("Error during Data Source initialization", err)
-    })
+    });
 
 export default AppDataSource;
