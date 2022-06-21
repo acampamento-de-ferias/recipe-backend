@@ -1,0 +1,5 @@
+CRIAR MIGRATION
+npm run typeorm migration:create src/migration/nome-da-migration
+
+EXECUTAR MIGRATIONS
+npm run typeorm -- migration:run -d src/data-source.ts
