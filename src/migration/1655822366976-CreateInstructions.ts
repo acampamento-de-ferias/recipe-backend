@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm"
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm"
 
 export class CreateInstructions1655822366976 implements MigrationInterface {
 
@@ -18,6 +18,10 @@ export class CreateInstructions1655822366976 implements MigrationInterface {
                         isUnique: true
                     },
                     {
+                        name: "recipe_id",
+                        type: "int",
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()"
@@ -29,6 +33,17 @@ export class CreateInstructions1655822366976 implements MigrationInterface {
                     },
                 ]
             })
+        );
+
+        
+        await queryRunner.createForeignKey(
+            "instructions",
+            new TableForeignKey({
+                columnNames: ["recipe_id"],
+                referencedColumnNames: ["id"],
+                referencedTableName: "recipes",
+                onDelete: "CASCADE",
+            }),
         );
     }
 
