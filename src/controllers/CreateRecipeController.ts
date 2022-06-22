@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateRecipeService } from "../service/CreateRecipeService";
+import { CreateRecipeService } from "../services/CreateRecipeService";
 
 export class CreateRecipeController {
 

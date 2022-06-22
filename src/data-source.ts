@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
-import { Ingredient } from "./entity/Ingredient";
-import { Instruction } from "./entity/Instruction";
-import { Recipe } from "./entity/Recipe";
+import { Ingredient } from "./entities/Ingredient";
+import { Instruction } from "./entities/Instruction";
+import { Recipe } from "./entities/Recipe";
 
 const AppDataSource = new DataSource({
     type: "mysql",
@@ -12,7 +12,7 @@ const AppDataSource = new DataSource({
     database: "recipes",
     synchronize: true,
     logging: false,
-    migrations: [__dirname + '/migration/**/*.ts'],
+    migrations: [__dirname + '/database/migrations/*.ts'],
     entities: [Recipe, Ingredient, Instruction],
 });
 

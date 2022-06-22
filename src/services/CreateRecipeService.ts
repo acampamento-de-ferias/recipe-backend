@@ -1,7 +1,7 @@
 import AppDataSource from "../data-source";
-import { Recipe } from "../entity/Recipe";
-import { Ingredient } from "../entity/Ingredient";
-import { Instruction } from "../entity/Instruction";
+import { Recipe } from "../entities/Recipe";
+import { Ingredient } from "../entities/Ingredient";
+import { Instruction } from "../entities/Instruction";
 
 interface IngredientRequest {
     name: string
