@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("recipes")
 export class Recipe {
@@ -18,12 +18,12 @@ export class Recipe {
     @Column()
     serving_size: number;
 
-    @Column()
-    preparation_time: Date;
+    @Column({ type: 'time' })
+    preparation_time: string;
 
-    @Column()
+    @CreateDateColumn()
     created_at: Date;
 
-    @Column()
+    @UpdateDateColumn()
     updated_at: Date;
 }

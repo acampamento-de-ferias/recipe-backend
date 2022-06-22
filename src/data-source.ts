@@ -1,8 +1,11 @@
 import { DataSource } from "typeorm";
+import { Ingredient } from "./entity/Ingredient";
+import { Instruction } from "./entity/Instruction";
+import { Recipe } from "./entity/Recipe";
 
 const AppDataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
+    host: "database-node",
     port: 3306,
     username: "root",
     password: "admin",
@@ -10,6 +13,7 @@ const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     migrations: [__dirname + '/migration/**/*.ts'],
+    entities: [Recipe, Ingredient, Instruction],
 });
 
 AppDataSource.initialize()

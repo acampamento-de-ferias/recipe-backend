@@ -12,8 +12,9 @@ services:
       - db
   db:
     container_name: 'database-node'
+    command: --default-authentication-plugin=mysql_native_password
     image: mysql:5.7
-    restart: unless-stopped
+    restart: always
     ports:
       - '3306:3306'
     environment:

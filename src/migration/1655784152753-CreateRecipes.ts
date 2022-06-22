@@ -15,7 +15,6 @@ export class CreateRecipes1655784152753 implements MigrationInterface {
                     {
                         name: "title",
                         type: "varchar",
-                        isUnique: true
                     },
                     {
                         name: "description",
