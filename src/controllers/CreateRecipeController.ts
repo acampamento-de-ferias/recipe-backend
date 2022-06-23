@@ -7,7 +7,7 @@ export class CreateRecipeController {
         
         const service = new CreateRecipeService();
 
-        const recipe = service.execute(request.body);
+        const recipe = await service.execute(request.body);
 
         return response.status(200).json(recipe)
     }
