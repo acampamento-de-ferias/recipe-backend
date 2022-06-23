@@ -1,7 +1,7 @@
 import AppDataSource from "../data-source";
 import { Recipe } from "../entities/Recipe";
-import { Ingredient } from "../entities/Ingredient";
-import { Instruction } from "../entities/Instruction";
+import { CreateInstructionService } from "./CreateInstructionService";
+import { CreateIngredientService } from "./CreateIngredientService";
 
 interface IngredientRequest {
     name: string
@@ -23,12 +23,20 @@ interface RecipeRequest {
 
 export class CreateRecipeService {
 
-    async execute({title, description, image, serving_size, preparation_time, ingredients, instructions}: RecipeRequest): Promise<Recipe> {
-        const recipeRepository = AppDataSource.getRepository(Recipe);
-        const ingredientRepository = AppDataSource.getRepository(Ingredient);
-        const instructionRepository = AppDataSource.getRepository(Instruction);
+    private _recipeRepository;
+    private _ingredientService;
+    private _instructionService;
 
-        const recipe = recipeRepository.create({
+
+    constructor() {
+        this._recipeRepository = AppDataSource.getRepository(Recipe);
+        this._ingredientService = new CreateIngredientService();
+        this._instructionService = new CreateInstructionService();
+    }
+
+    async execute({title, description, image, serving_size, preparation_time, ingredients, instructions}: RecipeRequest): Promise<Recipe> {
+
+        const recipe = this._recipeRepository.create({
             title,
             description,
             image,
@@ -36,25 +44,10 @@ export class CreateRecipeService {
             preparation_time
         }); 
 
-        await recipeRepository.save(recipe);
+        await this._recipeRepository.save(recipe);
 
-        ingredients.map(async (ingredient: IngredientRequest) => {
-            const ingredientModel = ingredientRepository.create({
-                name: ingredient.name,
-                recipe_id: recipe.id
-            });
-
-            await ingredientRepository.save(ingredientModel);
-        });
-
-        instructions.map(async (instruction: InstructionRequest) => {
-            const instructionModel = ingredientRepository.create({
-                name: instruction.name,
-                recipe_id: recipe.id
-            });
-
-            await instructionRepository.save(instructionModel);
-        });
+        await this._ingredientService.executeMany(ingredients, recipe);
+        await this._instructionService.executeMany(instructions, recipe);
 
         return recipe;
     }
