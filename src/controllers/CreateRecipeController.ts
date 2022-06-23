@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Recipe } from "../entities/Recipe";
 import { CreateRecipeService } from "../services/CreateRecipeService";
 
 export class CreateRecipeController {
@@ -7,8 +8,12 @@ export class CreateRecipeController {
         
         const service = new CreateRecipeService();
 
-        const recipe = await service.execute(request.body);
+        const result = await service.execute(request.body);
 
-        return response.status(200).json(recipe)
+        if (result instanceof Recipe) {
+            return response.status(200).json(result);
+        }
+
+        return response.status(400).json(result);
     }
 }

@@ -1,10 +1,7 @@
 import AppDataSource from "../data-source";
 import { Ingredient } from "../entities/Ingredient";
 import { Recipe } from "../entities/Recipe";
-
-interface IngredientRequest {
-    name: string
-};
+import { IngredientRequest } from "../interfaces/IngredientRequest";
 
 export class CreateIngredientService {
 

@@ -1,10 +1,7 @@
 import AppDataSource from "../data-source";
 import { Instruction } from "../entities/Instruction";
 import { Recipe } from "../entities/Recipe";
-
-interface InstructionRequest {
-    name: string
-};
+import { InstructionRequest } from "../interfaces/InstructionRequest";
 
 export class CreateInstructionService {
 

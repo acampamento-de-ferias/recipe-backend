@@ -1,32 +1,15 @@
+import { Repository } from "typeorm";
 import AppDataSource from "../data-source";
 import { Recipe } from "../entities/Recipe";
-import { CreateInstructionService } from "./CreateInstructionService";
+import { RecipeRequest } from "../interfaces/RecipeRequest";
 import { CreateIngredientService } from "./CreateIngredientService";
-
-interface IngredientRequest {
-    name: string
-};
-
-interface InstructionRequest {
-    name: string
-};
-
-interface RecipeRequest {
-    title: string;
-    description?: string;
-    image: string;
-    serving_size: number;
-    preparation_time: string;
-    ingredients: Array<IngredientRequest>;
-    instructions: Array<InstructionRequest>;
-};
+import { CreateInstructionService } from "./CreateInstructionService";
 
 export class CreateRecipeService {
 
-    private _recipeRepository;
-    private _ingredientService;
-    private _instructionService;
-
+    private _recipeRepository: Repository<Recipe>;
+    private _ingredientService: CreateIngredientService;
+    private _instructionService: CreateInstructionService;
 
     constructor() {
         this._recipeRepository = AppDataSource.getRepository(Recipe);
@@ -36,20 +19,33 @@ export class CreateRecipeService {
 
     async execute({title, description, image, serving_size, preparation_time, ingredients, instructions}: RecipeRequest): Promise<Recipe> {
 
-        const recipe = this._recipeRepository.create({
-            title,
-            description,
-            image,
-            serving_size,
-            preparation_time
-        }); 
+        const queryRunner = AppDataSource.createQueryRunner();
+        await queryRunner.connect();
 
-        await this._recipeRepository.save(recipe);
-
-        await this._ingredientService.executeMany(ingredients, recipe);
-        await this._instructionService.executeMany(instructions, recipe);
-
-        return recipe;
+        await queryRunner.startTransaction();
+        try {
+            const recipe = this._recipeRepository.create({
+                title,
+                description,
+                image,
+                serving_size,
+                preparation_time
+            }); 
+    
+            await this._recipeRepository.save(recipe);
+    
+            await this._ingredientService.executeMany(ingredients, recipe);
+            await this._instructionService.executeMany(instructions, recipe);
+    
+            await queryRunner.commitTransaction();
+            await queryRunner.release();
+            return recipe;
+        } catch (e) {
+            await queryRunner.rollbackTransaction();
+            await queryRunner.release();
+            return e;
+        }
+        
     }
 
 }
