@@ -15,7 +15,9 @@ export class Ingredient {
     @Column()
     recipe_id: number;
 
-    @ManyToOne(() => Recipe)
+    @ManyToOne(() => Recipe, (recipe) => recipe.ingredients, {
+        onDelete: "CASCADE"
+    })
     @JoinColumn({name: "recipe_id"})
     recipe: Recipe;
 
