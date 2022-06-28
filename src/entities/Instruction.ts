@@ -9,7 +9,7 @@ export class Instruction {
     id: number;
 
     @Column()
-    @Length(3, 70)
+    @Length(3, 170)
     name: string;
 
     @Column()

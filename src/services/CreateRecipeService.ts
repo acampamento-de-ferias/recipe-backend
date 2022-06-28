@@ -38,13 +38,13 @@ export class CreateRecipeService {
     
             const errors = await validate(recipe);
             if (errors.length > 0) {
-                throw (`Validation failed: ${errors}`)
+                throw new Error(`Validation failed: ${errors}`)
             }
     
             await this._queryRunner.manager.save(recipe);
     
-            await this._ingredientService.executeMany(ingredients, recipe);
-            await this._instructionService.executeMany(instructions, recipe);
+            await this._ingredientService.executeMany(ingredients, recipe, this._queryRunner.manager);
+            await this._instructionService.executeMany(instructions, recipe, this._queryRunner.manager);
             
             await this._queryRunner.commitTransaction();
             await this._queryRunner.release();

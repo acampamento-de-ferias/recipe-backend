@@ -1,4 +1,5 @@
 import { validate } from "class-validator";
+import { EntityManager } from "typeorm";
 import AppDataSource from "../data-source";
 import { Ingredient } from "../entities/Ingredient";
 import { Recipe } from "../entities/Recipe";
@@ -10,7 +11,7 @@ export class CreateIngredientService {
      * Register many Ingredients
      *  
      */
-    async executeMany(ingredients: Array<IngredientRequest>, recipe: Recipe): Promise<Ingredient[]> {
+    async executeMany(ingredients: Array<IngredientRequest>, recipe: Recipe, manager: EntityManager): Promise<Ingredient[]> {
 
         const ingredientRepository = AppDataSource.getRepository(Ingredient);
 
@@ -25,7 +26,7 @@ export class CreateIngredientService {
                 throw new Error (`Validation failed: ${errors}`)
             }
 
-            await ingredientRepository.save(ingredientModel);
+            await manager.save(ingredientModel);
             return ingredientModel;
         });
         
