@@ -7,6 +7,6 @@ export interface RecipeRequest {
     image: string;
     serving_size: number;
     preparation_time: string;
-    ingredients: Array<IngredientRequest>;
-    instructions: Array<InstructionRequest>;
+    ingredients: IngredientRequest[];
+    instructions: InstructionRequest[];
 };
