@@ -1,3 +1,4 @@
+import { Length } from "class-validator";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Recipe } from "./Recipe";
 
@@ -8,6 +9,7 @@ export class Instruction {
     id: number;
 
     @Column()
+    @Length(3, 70)
     name: string;
 
     @Column()

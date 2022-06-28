@@ -1,4 +1,5 @@
-import { Repository } from "typeorm";
+import { validate } from "class-validator";
+import { QueryRunner, Repository } from "typeorm";
 import AppDataSource from "../data-source";
 import { Recipe } from "../entities/Recipe";
 import { RecipeRequest } from "../interfaces/RecipeRequest";
@@ -10,42 +11,49 @@ export class CreateRecipeService {
     private _recipeRepository: Repository<Recipe>;
     private _ingredientService: CreateIngredientService;
     private _instructionService: CreateInstructionService;
+    private _queryRunner: QueryRunner;
 
     constructor() {
         this._recipeRepository = AppDataSource.getRepository(Recipe);
+        this._queryRunner = AppDataSource.createQueryRunner();
         this._ingredientService = new CreateIngredientService();
         this._instructionService = new CreateInstructionService();
     }
 
-    async execute({title, description, image, serving_size, preparation_time, ingredients, instructions}: RecipeRequest): Promise<Recipe> {
+    async execute({title, description, image, serving_size, preparation_time, ingredients, instructions}: RecipeRequest): Promise<Recipe | Error> {
+        
+        await this._queryRunner.connect();
+        await this._queryRunner.startTransaction();
 
-        const queryRunner = AppDataSource.createQueryRunner();
-        await queryRunner.connect();
-
-        await queryRunner.startTransaction();
         try {
             const recipe = this._recipeRepository.create({
                 title,
                 description,
                 image,
                 serving_size,
-                preparation_time
+                preparation_time,
+                instructions, // only for validation, it doesn't save here
+                ingredients // only for validation, it doesn't save here
             }); 
     
-            await this._recipeRepository.save(recipe);
+            const errors = await validate(recipe);
+            if (errors.length > 0) {
+                throw (`Validation failed: ${errors}`)
+            }
+    
+            await this._queryRunner.manager.save(recipe);
     
             await this._ingredientService.executeMany(ingredients, recipe);
             await this._instructionService.executeMany(instructions, recipe);
-    
-            await queryRunner.commitTransaction();
-            await queryRunner.release();
-            return recipe;
+            
+            await this._queryRunner.commitTransaction();
+            await this._queryRunner.release();
+            return recipe;        
         } catch (e) {
-            await queryRunner.rollbackTransaction();
-            await queryRunner.release();
-            return e;
+            await this._queryRunner.rollbackTransaction();
+            await this._queryRunner.release();
+            return new Error(e.message);
         }
-        
     }
 
 }

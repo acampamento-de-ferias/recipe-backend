@@ -14,6 +14,6 @@ export class CreateRecipeController {
             return response.status(200).json(result);
         }
 
-        return response.status(400).json(result);
+        return response.status(400).json(result.message);
     }
 }
