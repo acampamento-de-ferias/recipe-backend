@@ -10,7 +10,7 @@ export class DeleteRecipeRepository {
         this._recipeRepository = AppDataSource.getRepository(Recipe);
     }
 
-    async delete(id: number) {
+    async delete(id: number): Promise<void | Error> {
         
         if (!await this._recipeRepository.findOneBy({id})) {
             return new Error("Recipe does not exists");

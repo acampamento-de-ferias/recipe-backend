@@ -11,7 +11,7 @@ export class CreateRecipeController {
         const result = await service.execute(request.body);
 
         if (result instanceof Recipe) {
-            return response.status(200).json(result);
+            return response.status(201).json(result);
         }
 
         return response.status(400).json(result.message);
