@@ -1,22 +1,16 @@
-import { Repository } from "typeorm";
-import AppDataSource from "../data-source";
 import { Recipe } from "../entities/Recipe";
+import { GetAllRecipesRepository } from "../repositories/GetAllRecipesRepository";
 
 export class GetAllRecipesService {
 
-    private _recipeRepository: Repository<Recipe>;
+    private _getAllRecipesRepository: GetAllRecipesRepository;
 
     constructor() {
-        this._recipeRepository = AppDataSource.getRepository(Recipe);
+        this._getAllRecipesRepository = new GetAllRecipesRepository();
     }
 
     async execute(): Promise<Recipe[]> {
-        return await this._recipeRepository.find({
-            relations: {
-                ingredients: true,
-                instructions: true
-            }
-        });
+        return await this._getAllRecipesRepository.getAll();
     }
 
 }
