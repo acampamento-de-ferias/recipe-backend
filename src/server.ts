@@ -1,3 +1,4 @@
 import { app } from "./app";
 
-app.listen(4000, () => console.log("Server is Running"))
+app.listen(process.env.NODE_PORT, () => console.log("Server is Running"));
+

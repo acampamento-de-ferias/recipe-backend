@@ -5,11 +5,11 @@ import { Recipe } from "./entities/Recipe";
 
 const AppDataSource = new DataSource({
     type: "mysql",
-    host: "database-node",
-    port: 3306,
-    username: "root",
-    password: "admin",
-    database: "recipes",
+    host: process.env.DB_CONTAINER_HOST,
+    port: parseInt(process.env.DB_CONTAINER_PORT),
+    username: process.env.DB_CONTAINER_USER,
+    password: process.env.DB_CONTAINER_ROOT_PASSWORD,
+    database: process.env.DB_CONTAINER_NAME,
     synchronize: true,
     logging: false,
     migrations: [__dirname + '/database/migrations/*.ts'],
