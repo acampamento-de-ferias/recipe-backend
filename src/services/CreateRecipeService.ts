@@ -7,6 +7,7 @@ import { RecipeRequest } from "../interfaces/RecipeRequest";
 import { CreateIngredientRepository } from "../repositories/CreateIngredientRepository";
 import { CreateInstructionRepository } from "../repositories/CreateInstructionRepository";
 import { CreateRecipeRepository } from "../repositories/CreateRecipeRepository";
+import { removeFile } from "../util";
 export class CreateRecipeService {
 
     private createRecipeRepository: CreateRecipeRepository;
@@ -52,7 +53,8 @@ export class CreateRecipeService {
         } catch (e) {
             await this._queryRunner.rollbackTransaction();
             await this._queryRunner.release();
-
+            removeFile('/storage/uploads/' + recipeRequest.image);
+            
             return new Error(e.message);
         }
     }

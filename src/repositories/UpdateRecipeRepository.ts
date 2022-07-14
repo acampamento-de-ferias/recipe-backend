@@ -2,6 +2,7 @@ import { validate } from "class-validator";
 import { EntityManager } from "typeorm";
 import { Recipe } from "../entities/Recipe";
 import { RecipeRequest } from "../interfaces/RecipeRequest";
+import { removeFile } from "../util";
 
 export class UpdateRecipeRepository {
 
@@ -12,6 +13,7 @@ export class UpdateRecipeRepository {
             throw new Error(`Recipe does not exists.`);
         }
 
+        removeFile('/storage/uploads/' + recipeToUpdate.image);
         recipeToUpdate.title = title;
         recipeToUpdate.description = description;
         recipeToUpdate.image = image;
