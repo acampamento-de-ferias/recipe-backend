@@ -8,7 +8,8 @@ describe("Get All Recipes", () => {
 
         await request('http://localhost:4000')
                         .post('/recipes')
-                        .send(createdRecipeObject);
+                        .field("data", JSON.stringify(createdRecipeObject))
+                        .attach('file', 'src/tests/images/bolo-de-laranja.jpg');;
 
         const response = await request('http://localhost:4000')
                                 .get(`/recipes`)

@@ -8,12 +8,14 @@ describe("Update Recipe", () => {
 
         const newRecipe = await request('http://localhost:4000')
                                         .post('/recipes')
-                                        .send(createdRecipeObject);
+                                        .field("data", JSON.stringify(createdRecipeObject))
+                                        .attach('file', 'src/tests/images/bolo-de-laranja.jpg');;
 
         createdRecipeObject.title = "Bolo de Cenoura";
         const response = await request('http://localhost:4000')
                                 .put(`/recipes/${newRecipe.body.id}`)
-                                .send(createdRecipeObject);
+                                .field("data", JSON.stringify(createdRecipeObject))
+                                .attach('file', 'src/tests/images/bolo-de-laranja.jpg');;
         
         expect(response.statusCode).toEqual(200);
     });
@@ -21,7 +23,8 @@ describe("Update Recipe", () => {
     it("Should not be able to update a recipe because there's no item with the informed id", async () => {
         const response = await request('http://localhost:4000')
                                 .put('/recipes/0')
-                                .send(createdRecipeObject);
+                                .field("data", JSON.stringify(createdRecipeObject))
+                                .attach('file', 'src/tests/images/bolo-de-laranja.jpg');;
         
         expect(response.statusCode).toEqual(400);
         expect(response.text).toBe("\"Recipe does not exists.\"");

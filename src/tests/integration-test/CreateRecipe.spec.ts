@@ -43,7 +43,8 @@ describe("Create Recipe", () => {
     it("Should be able to create a new recipe", async () => {
         const response = await request('http://localhost:4000')
                                 .post('/recipes')
-                                .send(createdRecipeObject);
+                                .field("data", JSON.stringify(createdRecipeObject))
+                                .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
         
         expect(response.statusCode).toEqual(201);
         expect(response.body).toHaveProperty("id");
@@ -57,7 +58,8 @@ describe("Create Recipe", () => {
 
         const response = await request('http://localhost:4000')
                                 .post('/recipes')
-                                .send(cloneRecipeObject);
+                                .field("data", JSON.stringify(cloneRecipeObject))
+                                .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
         
         expect(response.statusCode).toEqual(400);
         expect(response.text).toBe("\"Validation failed: An instance of Recipe has failed the validation:\\n - property title has failed the following constraints: isLength \\n\"");
@@ -71,8 +73,9 @@ describe("Create Recipe", () => {
 
         const response = await request('http://localhost:4000')
                                 .post('/recipes')
-                                .send(cloneRecipeObject);
-        
+                                .field("data", JSON.stringify(cloneRecipeObject))
+                                .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
+
         expect(response.statusCode).toEqual(400);
         expect(response.text).toBe("\"Validation failed: An instance of Ingredient has failed the validation:\\n - property name has failed the following constraints: isLength \\n\"");
     });
@@ -85,7 +88,8 @@ describe("Create Recipe", () => {
 
         const response = await request('http://localhost:4000')
                                 .post('/recipes')
-                                .send(cloneRecipeObject);
+                                .field("data", JSON.stringify(cloneRecipeObject))
+                                .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
         
         expect(response.statusCode).toEqual(400);
         expect(response.text).toBe("\"Validation failed: An instance of Instruction has failed the validation:\\n - property name has failed the following constraints: isLength \\n\"");

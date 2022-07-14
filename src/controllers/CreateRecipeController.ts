@@ -8,7 +8,10 @@ export class CreateRecipeController {
         
         const service = new CreateRecipeService();
 
-        const result = await service.execute(request.body);
+        const data = JSON.parse(request.body.data);
+        data.image = request.file.filename;
+
+        const result = await service.execute(data);
 
         if (result instanceof Recipe) {
             return response.status(201).json(result);
