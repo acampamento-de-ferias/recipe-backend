@@ -1,4 +1,5 @@
 import request from "supertest";
+import { requestAPI } from "../integration-setup";
 import { createdRecipeObject } from "./CreateRecipe.spec";
 // import { app } from "../../app";
 
@@ -6,7 +7,7 @@ describe("Delete Recipe", () => {
 
     it("Should be able to delete a recipe", async () => {
 
-        const newRecipe = await request('http://localhost:4000')
+        const newRecipe = await requestAPI
                                         .post('/recipes')
                                         .field("data", JSON.stringify(createdRecipeObject))
                                         .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
@@ -18,7 +19,7 @@ describe("Delete Recipe", () => {
     });
 
     it("Should not be able to delete a recipe because there's no item with the informed id", async () => {
-        const response = await request('http://localhost:4000')
+        const response = await requestAPI
                                 .delete('/recipes/0');
         
         expect(response.statusCode).toEqual(400);

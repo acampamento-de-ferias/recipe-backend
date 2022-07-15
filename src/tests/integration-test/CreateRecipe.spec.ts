@@ -1,11 +1,10 @@
-import request from "supertest";
 import { deepCloneNative } from "../../util";
+import { requestAPI } from "../integration-setup";
 // import { app } from "../../app";
 
 export const createdRecipeObject = {
     "title": "Bolo de Laranja",
     "description": "Como fazer um bolo de Laranja top",
-    "image": "farei_isto_depois.png",
     "serving_size": 12,
     "preparation_time": "40:00",
     "ingredients": [
@@ -38,13 +37,23 @@ export const createdRecipeObject = {
     ]
 }
 
+
 describe("Create Recipe", () => {
 
     it("Should be able to create a new recipe", async () => {
-        const response = await request('http://localhost:4000')
+        const response = await requestAPI
                                 .post('/recipes')
                                 .field("data", JSON.stringify(createdRecipeObject))
                                 .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
+        
+        expect(response.statusCode).toEqual(201);
+        expect(response.body).toHaveProperty("id");
+    });
+
+    it("Should be able to create a new recipe without image", async () => {
+        const response = await requestAPI
+                                .post('/recipes')
+                                .field("data", JSON.stringify(createdRecipeObject))
         
         expect(response.statusCode).toEqual(201);
         expect(response.body).toHaveProperty("id");
@@ -56,7 +65,7 @@ describe("Create Recipe", () => {
         const cloneRecipeObject = deepCloneNative(createdRecipeObject);
         cloneRecipeObject.title = "O";
 
-        const response = await request('http://localhost:4000')
+        const response = await requestAPI
                                 .post('/recipes')
                                 .field("data", JSON.stringify(cloneRecipeObject))
                                 .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
@@ -71,7 +80,7 @@ describe("Create Recipe", () => {
         const cloneRecipeObject = deepCloneNative(createdRecipeObject);
         cloneRecipeObject.ingredients[0].name = "4";
 
-        const response = await request('http://localhost:4000')
+        const response = await requestAPI
                                 .post('/recipes')
                                 .field("data", JSON.stringify(cloneRecipeObject))
                                 .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
@@ -86,7 +95,7 @@ describe("Create Recipe", () => {
         const cloneRecipeObject = deepCloneNative(createdRecipeObject);
         cloneRecipeObject.instructions[0].name = "B";
 
-        const response = await request('http://localhost:4000')
+        const response = await requestAPI
                                 .post('/recipes')
                                 .field("data", JSON.stringify(cloneRecipeObject))
                                 .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
