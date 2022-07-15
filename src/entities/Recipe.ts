@@ -1,4 +1,4 @@
-import { IsInt, Length, MaxLength } from "class-validator";
+import { IsInt, IsOptional, Length, MaxLength } from "class-validator";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Ingredient } from "./Ingredient";
 import { Instruction } from "./Instruction";
@@ -12,12 +12,14 @@ export class Recipe {
     @Length(3, 70)
     title: string;
 
-    @Column()
+    @Column({nullable: true})
     @MaxLength(250)
+    @IsOptional()
     description: string;
 
-    @Column()
+    @Column({nullable: true})
     @MaxLength(255)
+    @IsOptional()
     image: string;
 
     @Column()

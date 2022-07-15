@@ -24,6 +24,7 @@ export class CreateRecipes1655784152753 implements MigrationInterface {
                     {
                         name: "image",
                         type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "serving_size",

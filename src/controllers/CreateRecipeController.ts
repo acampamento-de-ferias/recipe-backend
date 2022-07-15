@@ -9,7 +9,7 @@ export class CreateRecipeController {
         const service = new CreateRecipeService();
 
         const data = JSON.parse(request.body.data);
-        data.image = request.file.filename;
+        data.image = request.file ? request.file.filename : null;
 
         const result = await service.execute(data);
 

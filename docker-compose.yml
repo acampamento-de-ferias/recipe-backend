@@ -13,6 +13,8 @@ services:
       - db
     depends_on:
       - db
+    stdin_open: true
+    tty: true
   db:
     container_name: ${DB_CONTAINER_HOST}
     command: --default-authentication-plugin=mysql_native_password
@@ -24,5 +26,7 @@ services:
       - MYSQL_TCP_PORT=${DB_CONTAINER_PORT}
     ports:
       - '${DB_LOCAL_PORT}:${DB_CONTAINER_PORT}'
-    stdin_open: true
-    tty: true
+    volumes:
+      - db:/var/lib/mysql
+volumes: 
+  db:

@@ -10,7 +10,7 @@ export class UpdateRecipeController {
         const service = new UpdateRecipeService();
 
         const data = JSON.parse(request.body.data);
-        data.image = request.file.filename;
+        data.image = request.file ? request.file.filename : null;
 
         const result = await service.execute(parseInt(id), data);
 
