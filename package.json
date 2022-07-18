@@ -7,7 +7,6 @@
     "dev": "ts-node-dev --poll --respawn --transpile-only src/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest",
-    "lint": "eslint . --fix --max-warnings=0",
     "format": "prettier . --write"
   },
   "repository": {
@@ -41,6 +40,7 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "jest": "^28.1.1",
     "prettier": "^2.7.1",
     "pretty-quick": "^3.1.3",

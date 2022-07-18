@@ -1,3 +1,3 @@
 export interface IngredientRequest {
-  name: string;
+    name: string;
 }
