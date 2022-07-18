@@ -1,15 +1,14 @@
-import { DeleteRecipeRepository } from "../repositories/DeleteRecipeRepository";
+import { DeleteResult } from 'typeorm';
+import { DeleteRecipeRepository } from '../repositories/DeleteRecipeRepository';
 
 export class DeleteRecipeService {
+  private deleteRecipeRepository: DeleteRecipeRepository;
 
-    private _deleteRecipeRepository: DeleteRecipeRepository;
+  constructor() {
+    this.deleteRecipeRepository = new DeleteRecipeRepository();
+  }
 
-    constructor() {
-        this._deleteRecipeRepository = new DeleteRecipeRepository();
-    }
-
-    async execute(id: number): Promise<void | Error> {
-        return await this._deleteRecipeRepository.delete(id);
-    }
-
+  async execute(id: number): Promise<Error | DeleteResult> {
+    return this.deleteRecipeRepository.delete(id);
+  }
 }

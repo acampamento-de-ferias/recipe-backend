@@ -1,22 +1,19 @@
-import { Repository } from "typeorm";
-import AppDataSource from "../data-source";
-import { Recipe } from "../entities/Recipe";
+import { DeleteResult, Repository } from 'typeorm';
+import AppDataSource from '../data-source';
+import { Recipe } from '../entities/Recipe';
 
 export class DeleteRecipeRepository {
+  private recipeRepository: Repository<Recipe>;
 
-    private _recipeRepository: Repository<Recipe>;
+  constructor() {
+    this.recipeRepository = AppDataSource.getRepository(Recipe);
+  }
 
-    constructor() {
-        this._recipeRepository = AppDataSource.getRepository(Recipe);
+  async delete(id: number): Promise<Error | DeleteResult> {
+    if (!(await this.recipeRepository.findOneBy({ id }))) {
+      return new Error('Recipe does not exists');
     }
 
-    async delete(id: number): Promise<void | Error> {
-        
-        if (!await this._recipeRepository.findOneBy({id})) {
-            return new Error("Recipe does not exists");
-        }
-
-        await this._recipeRepository.delete(id);
-    }
-
+    return this.recipeRepository.delete(id);
+  }
 }

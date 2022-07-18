@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   app:
@@ -28,5 +28,5 @@ services:
       - '${DB_LOCAL_PORT}:${DB_CONTAINER_PORT}'
     volumes:
       - db:/var/lib/mysql
-volumes: 
+volumes:
   db:

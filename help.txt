@@ -3,3 +3,6 @@ npm run typeorm migration:create src/database/migrations/nome-da-migration
 
 EXECUTAR MIGRATIONS
 npm run typeorm -- migration:run -d src/database/run-migrations.ts
+
+FORMATAR OS ARQUIVOS MODIFICADOS COM PRETTIER
+npx pretty-quick

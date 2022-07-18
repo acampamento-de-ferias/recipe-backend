@@ -1,16 +1,14 @@
-import { Recipe } from "../entities/Recipe";
-import { GetAllRecipesRepository } from "../repositories/GetAllRecipesRepository";
+import { Recipe } from '../entities/Recipe';
+import { GetAllRecipesRepository } from '../repositories/GetAllRecipesRepository';
 
 export class GetAllRecipesService {
+  private getAllRecipesRepository: GetAllRecipesRepository;
 
-    private _getAllRecipesRepository: GetAllRecipesRepository;
+  constructor() {
+    this.getAllRecipesRepository = new GetAllRecipesRepository();
+  }
 
-    constructor() {
-        this._getAllRecipesRepository = new GetAllRecipesRepository();
-    }
-
-    async execute(): Promise<Recipe[]> {
-        return await this._getAllRecipesRepository.getAll();
-    }
-
+  async execute(): Promise<Recipe[]> {
+    return this.getAllRecipesRepository.getAll();
+  }
 }
