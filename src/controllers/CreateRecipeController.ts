@@ -3,18 +3,18 @@ import { Recipe } from '../entities/Recipe';
 import { CreateRecipeService } from '../services/CreateRecipeService';
 
 export class CreateRecipeController {
-    async handle(request: Request, response: Response) {
-        const service = new CreateRecipeService();
+  async handle(request: Request, response: Response) {
+    const service = new CreateRecipeService();
 
-        const data = JSON.parse(request.body.data);
-        data.image = request.file ? request.file.filename : null;
+    const data = JSON.parse(request.body.data);
+    data.image = request.file ? request.file.filename : null;
 
-        const result = await service.execute(data);
+    const result = await service.execute(data);
 
-        if (result instanceof Recipe) {
-            return response.status(201).json(result);
-        }
-
-        return response.status(400).json(result.message);
+    if (result instanceof Recipe) {
+      return response.status(201).json(result);
     }
+
+    return response.status(400).json(result.message);
+  }
 }

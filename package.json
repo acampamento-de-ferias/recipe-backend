@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --poll --respawn --transpile-only src/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "lint": "eslint . --fix --max-warnings=0"
   },
   "repository": {
     "type": "git",
