@@ -6,31 +6,31 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import { Recipe } from './Recipe';
 
 @Entity('ingredients')
 export class Ingredient {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @Column()
   @Length(3, 70)
-    name: string;
+  name: string;
 
   @Column()
-    recipe_id: number;
+  recipe_id: number;
 
   @ManyToOne(() => Recipe, (recipe) => recipe.ingredients, {
-    onDelete: 'CASCADE',
+    onDelete: 'CASCADE'
   })
   @JoinColumn({ name: 'recipe_id' })
-    recipe: Recipe;
+  recipe: Recipe;
 
   @CreateDateColumn()
-    created_at: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-    updated_at: Date;
+  updated_at: Date;
 }

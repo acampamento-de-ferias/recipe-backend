@@ -10,9 +10,9 @@ export class CreateRecipeRepository {
       description,
       image,
       serving_size,
-      preparation_time,
+      preparation_time
     }: RecipeRequest,
-    manager: EntityManager,
+    manager: EntityManager
   ): Promise<Recipe> {
     const recipe = new Recipe();
     recipe.title = title;

@@ -9,5 +9,5 @@ export default new DataSource({
   database: 'recipes',
   synchronize: true,
   logging: false,
-  migrations: [`${__dirname}/migrations/**/*.{js, ts}`],
+  migrations: [`${__dirname}/migrations/**/*.{js, ts}`]
 });

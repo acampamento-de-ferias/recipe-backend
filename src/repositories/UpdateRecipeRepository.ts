@@ -12,9 +12,9 @@ export class UpdateRecipeRepository {
       description,
       image,
       serving_size,
-      preparation_time,
+      preparation_time
     }: RecipeRequest,
-    manager: EntityManager,
+    manager: EntityManager
   ): Promise<Recipe> {
     const recipeToUpdate = await manager.findOneBy(Recipe, { id });
     if (!recipeToUpdate) {

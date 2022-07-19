@@ -33,7 +33,7 @@ export class CreateRecipeService {
       // Create a new Recipe
       const recipe = await this.createRecipeRepository.create(
         recipeRequest,
-        this.queryRunner.manager,
+        this.queryRunner.manager
       );
 
       // Create ingredients
@@ -42,9 +42,9 @@ export class CreateRecipeService {
           await this.createIngredientRepository.create(
             ingredient,
             recipe,
-            this.queryRunner.manager,
+            this.queryRunner.manager
           );
-        }),
+        })
       );
 
       // Create instructions
@@ -54,10 +54,10 @@ export class CreateRecipeService {
             await this.createInstructionRepository.create(
               instruction,
               recipe,
-              this.queryRunner.manager,
+              this.queryRunner.manager
             );
-          },
-        ),
+          }
+        )
       );
 
       await this.queryRunner.commitTransaction();

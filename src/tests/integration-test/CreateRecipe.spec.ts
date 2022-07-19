@@ -9,41 +9,41 @@ export const createdRecipeObject = {
   preparation_time: '40:00',
   ingredients: [
     {
-      name: '4 ovos',
+      name: '4 ovos'
     },
     {
-      name: '2 xícaras (chá) de açúcar',
+      name: '2 xícaras (chá) de açúcar'
     },
     {
-      name: '1 xícara (chá) de óleo',
+      name: '1 xícara (chá) de óleo'
     },
     {
-      name: 'suco de 2 laranjas',
+      name: 'suco de 2 laranjas'
     },
     {
-      name: 'casca de 1 laranja',
+      name: 'casca de 1 laranja'
     },
     {
-      name: '2 xícaras (chá) de farinha de trigo',
+      name: '2 xícaras (chá) de farinha de trigo'
     },
     {
-      name: '1 colher (sopa) de fermento',
-    },
+      name: '1 colher (sopa) de fermento'
+    }
   ],
   instructions: [
     {
-      name: 'Bata no liquidificador os ovos, o açúcar, o óleo, o suco e a casca da laranja.',
+      name: 'Bata no liquidificador os ovos, o açúcar, o óleo, o suco e a casca da laranja.'
     },
     {
-      name: 'Passe para uma tigela e acrescente a farinha de trigo e o fermento.',
+      name: 'Passe para uma tigela e acrescente a farinha de trigo e o fermento.'
     },
     {
-      name: 'Leve para assar em uma forma com furo central, untada e enfarinhada, por mais ou menos 30 minutos.',
+      name: 'Leve para assar em uma forma com furo central, untada e enfarinhada, por mais ou menos 30 minutos.'
     },
     {
-      name: 'Desenforme o bolo e molhe com suco de laranja.',
-    },
-  ],
+      name: 'Desenforme o bolo e molhe com suco de laranja.'
+    }
+  ]
 };
 
 describe('Create Recipe', () => {
@@ -78,7 +78,7 @@ describe('Create Recipe', () => {
 
     expect(response.statusCode).toEqual(400);
     expect(response.text).toBe(
-      '"Validation failed: An instance of Recipe has failed the validation:\\n - property title has failed the following constraints: isLength \\n"',
+      '"Validation failed: An instance of Recipe has failed the validation:\\n - property title has failed the following constraints: isLength \\n"'
     );
   });
 
@@ -94,7 +94,7 @@ describe('Create Recipe', () => {
 
     expect(response.statusCode).toEqual(400);
     expect(response.text).toBe(
-      '"Validation failed: An instance of Ingredient has failed the validation:\\n - property name has failed the following constraints: isLength \\n"',
+      '"Validation failed: An instance of Ingredient has failed the validation:\\n - property name has failed the following constraints: isLength \\n"'
     );
   });
 
@@ -110,7 +110,7 @@ describe('Create Recipe', () => {
 
     expect(response.statusCode).toEqual(400);
     expect(response.text).toBe(
-      '"Validation failed: An instance of Instruction has failed the validation:\\n - property name has failed the following constraints: isLength \\n"',
+      '"Validation failed: An instance of Instruction has failed the validation:\\n - property name has failed the following constraints: isLength \\n"'
     );
   });
 });

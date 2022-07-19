@@ -14,7 +14,7 @@ const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
   migrations: [`${__dirname}/database/migrations/*.ts`],
-  entities: [Recipe, Ingredient, Instruction],
+  entities: [Recipe, Ingredient, Instruction]
 });
 
 AppDataSource.initialize()

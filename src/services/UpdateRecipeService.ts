@@ -35,7 +35,7 @@ export class UpdateRecipeService {
 
   async execute(
     id: number,
-    recipeRequest: RecipeRequest,
+    recipeRequest: RecipeRequest
   ): Promise<Recipe | Error> {
     await this.queryRunner.connect();
     await this.queryRunner.startTransaction();
@@ -44,19 +44,19 @@ export class UpdateRecipeService {
       const recipeToUpdate = await this.updateRecipeRepository.update(
         id,
         recipeRequest,
-        this.queryRunner.manager,
+        this.queryRunner.manager
       );
 
       // Delete olders ingredients
       await this.deleteIngredientRepository.deleteIngredientsByRecipe(
         recipeToUpdate,
-        this.queryRunner.manager,
+        this.queryRunner.manager
       );
 
       // Delete olders instructions
       await this.deleteInstructionRepository.deleteInstructionsByRecipe(
         recipeToUpdate,
-        this.queryRunner.manager,
+        this.queryRunner.manager
       );
 
       // Create ingredients
@@ -65,9 +65,9 @@ export class UpdateRecipeService {
           await this.createIngredientRepository.create(
             ingredient,
             recipeToUpdate,
-            this.queryRunner.manager,
+            this.queryRunner.manager
           );
-        }),
+        })
       );
 
       // Create instructions
@@ -77,10 +77,10 @@ export class UpdateRecipeService {
             await this.createInstructionRepository.create(
               instruction,
               recipeToUpdate,
-              this.queryRunner.manager,
+              this.queryRunner.manager
             );
-          },
-        ),
+          }
+        )
       );
 
       await this.queryRunner.commitTransaction();

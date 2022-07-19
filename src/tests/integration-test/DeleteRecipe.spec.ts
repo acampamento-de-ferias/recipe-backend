@@ -11,7 +11,7 @@ describe('Delete Recipe', () => {
       .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
 
     const response = await request('http://localhost:4000').delete(
-      `/recipes/${newRecipe.body.id}`,
+      `/recipes/${newRecipe.body.id}`
     );
 
     expect(response.statusCode).toEqual(204);

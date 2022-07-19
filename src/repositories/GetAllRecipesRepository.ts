@@ -13,8 +13,8 @@ export class GetAllRecipesRepository {
     return this.recipeRepository.find({
       relations: {
         ingredients: true,
-        instructions: true,
-      },
+        instructions: true
+      }
     });
   }
 }

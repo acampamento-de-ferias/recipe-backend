@@ -21,7 +21,7 @@ export class DeleteInstructionRepository {
 
   async deleteInstructionsByRecipe(
     recipe: Recipe,
-    manager: EntityManager,
+    manager: EntityManager
   ): Promise<void> {
     await manager
       .createQueryBuilder()

@@ -9,42 +9,42 @@ export class CreateRecipes1655784152753 implements MigrationInterface {
           {
             name: 'id',
             type: 'int',
-            isPrimary: true,
+            isPrimary: true
           },
           {
             name: 'title',
-            type: 'varchar',
+            type: 'varchar'
           },
           {
             name: 'description',
             type: 'text',
-            isNullable: true,
+            isNullable: true
           },
           {
             name: 'image',
             type: 'varchar',
-            isNullable: true,
+            isNullable: true
           },
           {
             name: 'serving_size',
-            type: 'int',
+            type: 'int'
           },
           {
             name: 'preparation_time',
-            type: 'time',
+            type: 'time'
           },
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'now()'
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
-          },
-        ],
-      }),
+            default: 'now()'
+          }
+        ]
+      })
     );
   }
 

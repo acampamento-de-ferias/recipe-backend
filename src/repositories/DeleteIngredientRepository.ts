@@ -20,7 +20,7 @@ export class DeleteIngredientRepository {
 
   async deleteIngredientsByRecipe(
     recipe: Recipe,
-    manager: EntityManager,
+    manager: EntityManager
   ): Promise<void> {
     await manager
       .createQueryBuilder()

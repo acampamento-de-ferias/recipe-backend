@@ -8,7 +8,7 @@ export class CreateIngredientRepository {
   async create(
     ingredientRequest: IngredientRequest,
     recipe: Recipe,
-    manager: EntityManager,
+    manager: EntityManager
   ): Promise<Ingredient> {
     const ingredient = new Ingredient();
     ingredient.name = ingredientRequest.name;

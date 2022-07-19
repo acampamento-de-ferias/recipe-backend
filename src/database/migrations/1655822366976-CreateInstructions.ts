@@ -2,7 +2,7 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableForeignKey,
+  TableForeignKey
 } from 'typeorm';
 
 export class CreateInstructions1655822366976 implements MigrationInterface {
@@ -14,29 +14,29 @@ export class CreateInstructions1655822366976 implements MigrationInterface {
           {
             name: 'id',
             type: 'int',
-            isPrimary: true,
+            isPrimary: true
           },
           {
             name: 'name',
             type: 'varchar',
-            isUnique: true,
+            isUnique: true
           },
           {
             name: 'recipe_id',
-            type: 'int',
+            type: 'int'
           },
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'now()'
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
-          },
-        ],
-      }),
+            default: 'now()'
+          }
+        ]
+      })
     );
 
     await queryRunner.createForeignKey(
@@ -45,8 +45,8 @@ export class CreateInstructions1655822366976 implements MigrationInterface {
         columnNames: ['recipe_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'recipes',
-        onDelete: 'CASCADE',
-      }),
+        onDelete: 'CASCADE'
+      })
     );
   }
 

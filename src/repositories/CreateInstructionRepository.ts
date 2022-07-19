@@ -8,7 +8,7 @@ export class CreateInstructionRepository {
   async create(
     instructionRequest: InstructionRequest,
     recipe: Recipe,
-    manager: EntityManager,
+    manager: EntityManager
   ): Promise<Instruction> {
     const instruction = new Instruction();
     instruction.name = instructionRequest.name;
