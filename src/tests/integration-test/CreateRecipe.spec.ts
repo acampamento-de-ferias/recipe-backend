@@ -54,7 +54,7 @@ describe('Create Recipe', () => {
       .attach('file', 'src/tests/images/bolo-de-laranja.jpg');
 
     expect(response.statusCode).toEqual(201);
-    expect(response.body).toHaveProperty('id');
+    expect(response.body).toHaveProperty('idff');
   });
 
   it('Should be able to create a new recipe without image', async () => {
