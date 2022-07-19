@@ -4,7 +4,7 @@ import { CreateRecipeService } from '../services/CreateRecipeService';
 
 export class CreateRecipeController {
   async handle(request: Request, response: Response) {
-    const service = new CreateRecipeService();
+      const service = new CreateRecipeService();
 
     const data = JSON.parse(request.body.data);
     data.image = request.file ? request.file.filename : null;
